@@ -1,5 +1,5 @@
 {
-  "name": "anchorList",
+  "name": "anchor-list",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,9 @@
     "start": "webpack -w --config webpack.config.js",
     "build": "webpack --config webpack.config.js"
   },
-  "keywords": ["anchorList"],
+  "keywords": [
+    "anchorList"
+  ],
   "author": "yumy",
   "license": "MIT",
   "devDependencies": {
@@ -45,6 +47,7 @@
   "dependencies": {
     "jquery": "^3.6.1",
     "mini-css-extract-plugin": "^2.4.6",
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "webpack-node-externals": "^3.0.0"
   }
 }

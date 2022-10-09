@@ -1,6 +1,7 @@
 const path = require("path");
 // eslint-disable-next-line import/no-extraneous-dependencies
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
@@ -15,13 +16,11 @@ module.exports = {
   output: {
     filename: "[name].js",
     chunkFilename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
-    clean: true,
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve("src"),
+    path: path.resolve(__dirname, "./dist"),
+    library: {
+      type: 'commonjs-static',
     },
+    clean: true,
   },
   module: {
     rules: [
@@ -72,6 +71,10 @@ module.exports = {
       filename: "index.html",
       template: "./public/index.html",
     }),
+  ],
+  externalsPresets: {node:true},
+  externals: [
+    nodeExternals(),
   ],
   optimization: {
     splitChunks: {
