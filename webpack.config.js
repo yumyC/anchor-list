@@ -16,7 +16,7 @@ module.exports = {
   output: {
     filename: "[name].js",
     chunkFilename: "[name].bundle.js",
-    path: "./dist",
+    path: path.resolve(__dirname, "./dist"),
     library: {
       type: 'commonjs-static',
     },
