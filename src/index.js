@@ -159,5 +159,5 @@ class AnchorFun {
 
 const anchorFun = new AnchorFun();
 
-export default anchorFun;
+export {anchorFun};
 
