@@ -1,6 +1,5 @@
 import $ from 'jquery';
-
-require('./anchorList.scss');
+import './anchorList.scss';
 
 class AnchorFun {
   constructor() {

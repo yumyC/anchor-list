@@ -10,6 +10,9 @@ module.exports = {
   cache: {
     type: "filesystem",
   },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
   entry: {
     anchorList: "./src/index.js",
   },
