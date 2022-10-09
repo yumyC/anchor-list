@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
+  devtool: 'source-map',
   target: ['web', 'es5'],
   cache: {
     type: "filesystem",

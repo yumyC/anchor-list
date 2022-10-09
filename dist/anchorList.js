@@ -1,24 +1,6 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
-
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"anchorFun\": function() { return /* binding */ anchorFun; }\n/* harmony export */ });\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ \"jquery\");\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _anchorList_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./anchorList.scss */ \"./src/anchorList.scss\");\n\n\n\nclass AnchorFun {\n  constructor() {\n    this.$header = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.com-header');\n    this.$anchorList = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.category-list');\n    this.$anchorContent = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.anchor-content-list');\n    this.anchorLinkEle = 'a[href^=\"#\"]';\n    this.scrollTop = 0;\n    this.anchorFunInit();\n  }\n\n  anchorFunInit() {\n    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', () => {\n      this.setAnchorToTheTop();\n      this.HandleAnchorEvents();\n      this.scrollFun();\n    });\n  }\n\n  srollAnimate(hashId) {\n    this.scrollTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()(hashId).offset().top - (!this.$header.length ? 0 : this.$header.height()) - (!this.$header.length ? 0 : this.$header.position().top) - 40;\n    jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({\n      scrollTop: this.scrollTop\n    }, 100);\n  }\n\n  setAnchorToTheTop(hashId) {\n    if (hashId) {\n      this.srollAnimate(hashId);\n    } else {\n      const id = window.location.hash;\n\n      if (id && jquery__WEBPACK_IMPORTED_MODULE_0___default()(id).length) {\n        this.srollAnimate(id);\n      }\n    }\n  }\n\n  HandleAnchorEvents() {\n    jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.anchorLinkEle).click(el => {\n      this.setAnchorToTheTop(jquery__WEBPACK_IMPORTED_MODULE_0___default()(el.currentTarget).attr('href'));\n    });\n  }\n\n  clearAchorActive(anchorTitleArr) {\n    anchorTitleArr.each((index, el) => {\n      if (index !== this.activeAchorIndex) {\n        jquery__WEBPACK_IMPORTED_MODULE_0___default()(`a[href='${jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).attr('href')}']`).removeClass('active');\n      }\n    });\n  }\n\n  setAnchorActive() {\n    if (!this.$anchorList.find(this.anchorLinkEle).length) {\n      return;\n    }\n\n    const headerHeight = !this.$header.length ? 1 : this.$header.outerHeight();\n    const headerPositionTop = !this.$header.length ? 1 : this.$header.position().top;\n    const winScrollTop = document.documentElement.scrollTop || document.body.scrollTop;\n    const anchorTitleArr = this.$anchorList.find('a[href^=\"#\"]');\n    let active = false;\n    anchorTitleArr.each((index, el) => {\n      const id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).attr('href');\n      const anchorTitleTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()(id).offset().top - winScrollTop - headerPositionTop - headerHeight;\n\n      if (anchorTitleTop < 40 && anchorTitleTop > 0) {\n        active = true;\n        this.activeAchorIndex = index;\n        this.activeAchorId = id;\n        jquery__WEBPACK_IMPORTED_MODULE_0___default()(`a[href='${this.activeAchorId}']`).addClass('active');\n        this.clearAchorActive(anchorTitleArr);\n      }\n    });\n\n    if (!active && !this.activeAchorIndex && winScrollTop) {\n      this.$anchorList.find(this.anchorLinkEle).first().addClass('active');\n    }\n\n    setTimeout(() => {\n      if (typeof winScrollTop === 'undefined') {\n        this.activeAchorIndex = null;\n        this.clearAchorActive(anchorTitleArr);\n        this.$anchorList.find(this.anchorLinkEle).first().addClass('active');\n      }\n    }, 301);\n  }\n\n  scrollFun() {\n    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load scroll', el => {\n      this.isPositionTop = false;\n      this.scrollBottom();\n\n      if (el.type === 'load') {\n        setTimeout(() => {\n          this.setAnchorToTheTop();\n        }, 0);\n      }\n    });\n  }\n\n  scrollBottom() {\n    if (!this.isMobile) {\n      const headerHeight = !this.$header.length ? 0 : this.$header.outerHeight();\n      const productHeight = this.$anchorContent.outerHeight();\n      const headerPositionTop = !this.$header.length ? 0 : this.$header.position().top;\n      let winScrollTop = document.documentElement.scrollTop || document.body.scrollTop;\n      const productListOffsetTop = this.$anchorContent.offset().top - winScrollTop;\n      this.isPositionTop = productListOffsetTop < headerHeight + headerPositionTop + 50 && productHeight + productListOffsetTop > headerHeight + headerPositionTop + 50;\n      this.$anchorList.parent().toggleClass('active-top', this.isPositionTop);\n      this.$anchorContent.parent().toggleClass('active-top', this.isPositionTop);\n      const scroll = productHeight + this.$anchorContent.offset().top - (winScrollTop + headerHeight + headerPositionTop);\n      const $dropdownContent = this.$anchorList.find('.dropdown-content')[0];\n      const dropdownContentHeight = $dropdownContent !== undefined ? $dropdownContent.clientHeight + headerHeight + headerPositionTop + 15 : headerHeight + headerPositionTop + 15;\n      let isBottomForMovetop = false;\n\n      if (document.body.clientHeight - headerHeight - headerPositionTop + 15 < dropdownContentHeight) {\n        isBottomForMovetop = true;\n      }\n\n      this.$anchorList.parent().toggleClass('bottom', isBottomForMovetop);\n      this.isScrollFooter = scroll < 0;\n      this.$anchorList.parent().toggleClass('active-bottom', this.isScrollFooter);\n      this.$anchorContent.parent().toggleClass('active-bottom', this.isScrollFooter);\n      this.setAnchorActive();\n    }\n  }\n\n}\n\nconst anchorFun = new AnchorFun();\n\n\n//# sourceURL=webpack://anchor-list/./src/index.js?");
-
-/***/ }),
 
 /***/ "./src/anchorList.scss":
 /*!*****************************!*\
@@ -26,7 +8,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://anchor-list/./src/anchorList.scss?");
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "@babel/runtime/helpers/classCallCheck":
+/*!********************************************************!*\
+  !*** external "@babel/runtime/helpers/classCallCheck" ***!
+  \********************************************************/
+/***/ (function(module) {
+
+module.exports = require("@babel/runtime/helpers/classCallCheck");
+
+/***/ }),
+
+/***/ "@babel/runtime/helpers/createClass":
+/*!*****************************************************!*\
+  !*** external "@babel/runtime/helpers/createClass" ***!
+  \*****************************************************/
+/***/ (function(module) {
+
+module.exports = require("@babel/runtime/helpers/createClass");
 
 /***/ }),
 
@@ -108,13 +112,191 @@ module.exports = require("jquery");
 /******/ 	}();
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
-/******/ 	exports.anchorFun = __webpack_exports__.anchorFun;
-/******/ 	Object.defineProperty(exports, "__esModule", { value: true });
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "anchorFun": function() { return /* binding */ anchorFun; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "@babel/runtime/helpers/classCallCheck");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "@babel/runtime/helpers/createClass");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _anchorList_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./anchorList.scss */ "./src/anchorList.scss");
+
+
+
+
+
+var AnchorFun = /*#__PURE__*/function () {
+  function AnchorFun() {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, AnchorFun);
+
+    this.$header = jquery__WEBPACK_IMPORTED_MODULE_2___default()('.com-header');
+    this.$anchorList = jquery__WEBPACK_IMPORTED_MODULE_2___default()('.category-list');
+    this.$anchorContent = jquery__WEBPACK_IMPORTED_MODULE_2___default()('.anchor-content-list');
+    this.anchorLinkEle = 'a[href^="#"]';
+    this.scrollTop = 0;
+    this.anchorFunInit();
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(AnchorFun, [{
+    key: "anchorFunInit",
+    value: function anchorFunInit() {
+      var _this = this;
+
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()(window).on('load', function () {
+        _this.setAnchorToTheTop();
+
+        _this.HandleAnchorEvents();
+
+        _this.scrollFun();
+      });
+    }
+  }, {
+    key: "srollAnimate",
+    value: function srollAnimate(hashId) {
+      this.scrollTop = jquery__WEBPACK_IMPORTED_MODULE_2___default()(hashId).offset().top - (!this.$header.length ? 0 : this.$header.height()) - (!this.$header.length ? 0 : this.$header.position().top) - 40;
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()('html, body').animate({
+        scrollTop: this.scrollTop
+      }, 100);
+    }
+  }, {
+    key: "setAnchorToTheTop",
+    value: function setAnchorToTheTop(hashId) {
+      if (hashId) {
+        this.srollAnimate(hashId);
+      } else {
+        var id = window.location.hash;
+
+        if (id && jquery__WEBPACK_IMPORTED_MODULE_2___default()(id).length) {
+          this.srollAnimate(id);
+        }
+      }
+    }
+  }, {
+    key: "HandleAnchorEvents",
+    value: function HandleAnchorEvents() {
+      var _this2 = this;
+
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()(this.anchorLinkEle).click(function (el) {
+        _this2.setAnchorToTheTop(jquery__WEBPACK_IMPORTED_MODULE_2___default()(el.currentTarget).attr('href'));
+      });
+    }
+  }, {
+    key: "clearAchorActive",
+    value: function clearAchorActive(anchorTitleArr) {
+      var _this3 = this;
+
+      anchorTitleArr.each(function (index, el) {
+        if (index !== _this3.activeAchorIndex) {
+          jquery__WEBPACK_IMPORTED_MODULE_2___default()("a[href='".concat(jquery__WEBPACK_IMPORTED_MODULE_2___default()(el).attr('href'), "']")).removeClass('active');
+        }
+      });
+    }
+  }, {
+    key: "setAnchorActive",
+    value: function setAnchorActive() {
+      var _this4 = this;
+
+      if (!this.$anchorList.find(this.anchorLinkEle).length) {
+        return;
+      }
+
+      var headerHeight = !this.$header.length ? 1 : this.$header.outerHeight();
+      var headerPositionTop = !this.$header.length ? 1 : this.$header.position().top;
+      var winScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      var anchorTitleArr = this.$anchorList.find('a[href^="#"]');
+      var active = false;
+      anchorTitleArr.each(function (index, el) {
+        var id = jquery__WEBPACK_IMPORTED_MODULE_2___default()(el).attr('href');
+        var anchorTitleTop = jquery__WEBPACK_IMPORTED_MODULE_2___default()(id).offset().top - winScrollTop - headerPositionTop - headerHeight;
+
+        if (anchorTitleTop < 40 && anchorTitleTop > 0) {
+          active = true;
+          _this4.activeAchorIndex = index;
+          _this4.activeAchorId = id;
+          jquery__WEBPACK_IMPORTED_MODULE_2___default()("a[href='".concat(_this4.activeAchorId, "']")).addClass('active');
+
+          _this4.clearAchorActive(anchorTitleArr);
+        }
+      });
+
+      if (!active && !this.activeAchorIndex && winScrollTop) {
+        this.$anchorList.find(this.anchorLinkEle).first().addClass('active');
+      }
+
+      setTimeout(function () {
+        if (typeof winScrollTop === 'undefined') {
+          _this4.activeAchorIndex = null;
+
+          _this4.clearAchorActive(anchorTitleArr);
+
+          _this4.$anchorList.find(_this4.anchorLinkEle).first().addClass('active');
+        }
+      }, 301);
+    }
+  }, {
+    key: "scrollFun",
+    value: function scrollFun() {
+      var _this5 = this;
+
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()(window).on('load scroll', function (el) {
+        _this5.isPositionTop = false;
+
+        _this5.scrollBottom();
+
+        if (el.type === 'load') {
+          setTimeout(function () {
+            _this5.setAnchorToTheTop();
+          }, 0);
+        }
+      });
+    }
+  }, {
+    key: "scrollBottom",
+    value: function scrollBottom() {
+      if (!this.isMobile) {
+        var headerHeight = !this.$header.length ? 0 : this.$header.outerHeight();
+        var productHeight = this.$anchorContent.outerHeight();
+        var headerPositionTop = !this.$header.length ? 0 : this.$header.position().top;
+        var winScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var productListOffsetTop = this.$anchorContent.offset().top - winScrollTop;
+        this.isPositionTop = productListOffsetTop < headerHeight + headerPositionTop + 50 && productHeight + productListOffsetTop > headerHeight + headerPositionTop + 50;
+        this.$anchorList.parent().toggleClass('active-top', this.isPositionTop);
+        this.$anchorContent.parent().toggleClass('active-top', this.isPositionTop);
+        var scroll = productHeight + this.$anchorContent.offset().top - (winScrollTop + headerHeight + headerPositionTop);
+        var $dropdownContent = this.$anchorList.find('.dropdown-content')[0];
+        var dropdownContentHeight = $dropdownContent !== undefined ? $dropdownContent.clientHeight + headerHeight + headerPositionTop + 15 : headerHeight + headerPositionTop + 15;
+        var isBottomForMovetop = false;
+
+        if (document.body.clientHeight - headerHeight - headerPositionTop + 15 < dropdownContentHeight) {
+          isBottomForMovetop = true;
+        }
+
+        this.$anchorList.parent().toggleClass('bottom', isBottomForMovetop);
+        this.isScrollFooter = scroll < 0;
+        this.$anchorList.parent().toggleClass('active-bottom', this.isScrollFooter);
+        this.$anchorContent.parent().toggleClass('active-bottom', this.isScrollFooter);
+        this.setAnchorActive();
+      }
+    }
+  }]);
+
+  return AnchorFun;
+}();
+
+var anchorFun = new AnchorFun();
+
+}();
+exports.anchorFun = __webpack_exports__.anchorFun;
+Object.defineProperty(exports, "__esModule", { value: true });
 /******/ })()
 ;
+//# sourceMappingURL=anchorList.js.map
